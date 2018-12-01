@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Notas</string>
+    <string name="title_activity_referencia">ReferenciaActivity</string>
+    <string name="hint_user_name">Nombre de Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="text_button_login">Login</string>
+    <string name="dont_have_account">¿No tienes cuenta?</string>
+    <string name="create_here">Crea una aquí.</string>
+    <string name="hint_correo_create">Correo</string>
+    <string name="hint_name_create">Nombre</string>
+    <string name="hint_user_name_create">Usuario</string>
+    <string name="hint_password_confirm">Confirmar contraseña</string>
+    <string name="create_account_txt">Crear cuenta</string>
+
+    <string name="tab_home_text">Inicio</string>
+    <string name="tab_profile_text">Cuenta</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Action Ssetings</string>
+    <string name="navigation_drawer_open">drawer open</string>
+    <string name="navigation_drawer_close">drawer close</string>
+    <string name="error_incorrect_password">Contraseña Incorrecta</string>
+    <string name="error_invalidc_email">Correo o Usuario invalido</string>
+    <string name="error_field_required">Campo requerido</string>
+    <string name="error_invalid_password">Contraseña invalida</string>
+    <string name="permission_rationale">permission rationale</string>
 </resources>
