@@ -2,6 +2,7 @@ package com.example.joshuansu.myapplication.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.joshuansu.myapplication.R;
 import com.example.joshuansu.myapplication.components.note.Note;
 import com.example.joshuansu.myapplication.components.note.NoteService;
+import com.example.joshuansu.myapplication.components.utils.Msg;
 import com.example.joshuansu.myapplication.remote.APIUtils;
 
 import org.json.JSONObject;
@@ -42,6 +44,8 @@ public class DetailActivity extends AppCompatActivity {
     FloatingActionButton saveFab;
     @BindView(R.id.detail_date)
     TextView dateTextView;
+    @BindView(R.id.delete_fab)
+    FloatingActionButton deleteFab;
 
     private Note note;
     private NoteService noteService;
@@ -57,6 +61,7 @@ public class DetailActivity extends AppCompatActivity {
 
         setSaveListener();
         setEditListener();
+        setDeleteListener();
         populateToDoObject();
     }
 
@@ -79,6 +84,15 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    private void setDeleteListener() {
+        deleteFab.setOnClickListener(view -> {
+            Snackbar snackbar = Snackbar.make(editFab, "Are you sure?", Snackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.setAction("YES", v -> deleteData());
+            snackbar.show();
+        });
+    }
+
     private void setEditListener() {
         editFab.setOnClickListener(view -> enableToDoViewEdition(true));
     }
@@ -88,7 +102,33 @@ public class DetailActivity extends AppCompatActivity {
         titleEditTextView.setEnabled(isEditClicking);
         contentEditTextView.setEnabled(isEditClicking);
         editFab.setVisibility(isEditClicking ? View.INVISIBLE : View.VISIBLE);
+        deleteFab.setVisibility(isEditClicking ? View.INVISIBLE : View.VISIBLE);
         saveFab.setVisibility(isEditClicking ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void deleteData() {
+        Call<Msg> call = noteService.delete(note.getId());
+        call.enqueue(new Callback<Msg>() {
+            @Override
+            public void onResponse(Call<Msg> call, Response<Msg> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(DetailActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(DetailActivity.this, jObjError.getString("error"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Msg> call, Throwable t) {
+                Log.e("ERROR ", t.getMessage());
+            }
+        });
     }
 
     private void saveData() {

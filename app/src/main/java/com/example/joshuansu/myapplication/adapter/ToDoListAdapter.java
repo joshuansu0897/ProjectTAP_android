@@ -62,6 +62,11 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public void addToDos(List<NoteMin> todos) {
+        toDoList.addAll(todos);
+        notifyDataSetChanged();
+    }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

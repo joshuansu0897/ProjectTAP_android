@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface NoteService {
 
@@ -18,6 +19,9 @@ public interface NoteService {
 
     @GET("note")
     Call<GetNote> getAll();
+
+    @GET("note")
+    Call<GetNote> getAll(@Query("offset") int offset, @Query("limit") int limit);
 
     @GET("note/{id}")
     Call<Note> get(@Path("id") int id);
