@@ -3,9 +3,10 @@ package com.example.joshuansu.myapplication.components.note;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Note {
+public class Note implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -21,12 +22,13 @@ public class Note {
     private int userId;
     @SerializedName("updatedAt")
     @Expose
-    private LocalDate updatedAt;
+    private Date updatedAt;
 
     public Note() {
+        this.id = -1;
     }
 
-    public Note(int id, String title, String content, int userId, LocalDate updatedAt) {
+    public Note(int id, String title, String content, int userId, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -66,11 +68,11 @@ public class Note {
         this.userId = userId;
     }
 
-    public LocalDate getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

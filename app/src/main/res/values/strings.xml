@@ -26,4 +26,7 @@
     <string name="error_field_required">Campo requerido</string>
     <string name="error_invalid_password">Contraseña invalida</string>
     <string name="permission_rationale">permission rationale</string>
+    <string name="titulo_todo">titulo</string>
+    <string name="date_todo">30/3/2018</string>
+    <string name="detail_date">Sat Dec 01</string>
 </resources>

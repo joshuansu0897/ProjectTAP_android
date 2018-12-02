@@ -16,8 +16,6 @@ import com.example.joshuansu.myapplication.remote.APIUtils;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -26,10 +24,12 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.username) TextView username;
-    @BindView(R.id.password) TextView password;
+    @BindView(R.id.username)
+    TextView username;
+    @BindView(R.id.password)
+    TextView password;
 
-    UserService userService;
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void signUp(View view){
+    public void signUp(View view) {
         User u = new User();
         u.setUsername(username.getText().toString());
         u.setPassword(password.getText().toString());
@@ -50,9 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<Msg>() {
             @Override
             public void onResponse(Call<Msg> call, Response<Msg> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Toast.makeText(LoginActivity.this, jObjError.getString("error"), Toast.LENGTH_SHORT).show();
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void signIn(View view){
+    public void signIn(View view) {
         User u = new User();
         u.setUsername(username.getText().toString());
         u.setPassword(password.getText().toString());
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     APIUtils.setToken(response.body().getToken());
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
